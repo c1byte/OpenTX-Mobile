@@ -413,6 +413,7 @@ public class CdcAcmSerialDriver implements UsbSerialDriver {
                         UsbId.ARDUINO_MEGA_ADK_R3,
                         UsbId.ARDUINO_LEONARDO,
                         UsbId.ARDUINO_MICRO,
+                        UsbId.OPENTX,
                 });
         supportedDevices.put(Integer.valueOf(UsbId.VENDOR_VAN_OOIJEN_TECH),
                 new int[] {
@@ -425,6 +426,10 @@ public class CdcAcmSerialDriver implements UsbSerialDriver {
         supportedDevices.put(Integer.valueOf(UsbId.VENDOR_LEAFLABS),
                 new int[] {
                     UsbId.LEAFLABS_MAPLE,
+                });
+        supportedDevices.put(Integer.valueOf(UsbId.VENDOR_STM),
+                new int[] {
+                        UsbId.OPENTX,
                 });
         return supportedDevices;
     }
