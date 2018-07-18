@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ScrollView;
@@ -17,6 +18,7 @@ import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.util.HexDump;
 import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -182,7 +184,7 @@ public class SerialConsoleActivity extends Activity {
 
     private void updateReceivedData(byte[] data) {
         final String message = "Read " + data.length + " bytes: \n"
-                + HexDump.dumpHexString(data) + "\n\n";
+                                + HexDump.dumpHexString(data) + "\n\n";
         mDumpTextView.append(message);
         mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
     }
@@ -200,4 +202,15 @@ public class SerialConsoleActivity extends Activity {
         context.startActivity(intent);
     }
 
+    public void  onClickSend(View view) throws UnsupportedEncodingException {
+
+        byte[] CRLP = new byte[2];
+        CRLP[0] = 0x0D;
+        CRLP[1] = 0x0A;
+    String data = "p outputs";
+        mSerialIoManager.writeAsync(CRLP);
+        mSerialIoManager.writeAsync(data.getBytes("UTF-8"));
+        mSerialIoManager.writeAsync(CRLP);
+
+    }
 }
