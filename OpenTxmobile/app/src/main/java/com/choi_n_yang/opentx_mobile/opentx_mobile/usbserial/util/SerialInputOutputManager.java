@@ -104,6 +104,10 @@ public class SerialInputOutputManager implements Runnable {
         }
     }
 
+    public void write(byte[] data) throws IOException  {
+        mDriver.write(data, READ_WAIT_MILLIS);
+    }
+
     public synchronized void stop() {
         if (getState() == State.RUNNING) {
             Log.i(TAG, "Stop requested");

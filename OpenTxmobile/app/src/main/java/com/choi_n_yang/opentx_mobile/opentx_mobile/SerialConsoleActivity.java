@@ -204,13 +204,19 @@ public class SerialConsoleActivity extends Activity {
 
     public void  onClickSend(View view) throws UnsupportedEncodingException {
 
+        final int WRITE_WAIT_MILLIS = 200;
         byte[] CRLP = new byte[2];
         CRLP[0] = 0x0D;
         CRLP[1] = 0x0A;
         String data = "p outputs";
-        mSerialIoManager.writeAsync(CRLP);
-        mSerialIoManager.writeAsync(data.getBytes("UTF-8"));
-        mSerialIoManager.writeAsync(CRLP);
+        try {
+            mSerialIoManager.write(CRLP);
+            mSerialIoManager.write(data.getBytes("UTF-8"));
+            mSerialIoManager.write(CRLP);
+        }catch (IOException e){
+            //Do noting.
+        }
+
 
     }
 }
