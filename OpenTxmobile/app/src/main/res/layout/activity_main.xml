@@ -2,13 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:id="mainLayout">
 
     <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent">
+        android:id="@+id/frameA"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDisConnect">
 
         <ImageView
             android:id="@+id/GimbalAView"
@@ -43,16 +51,51 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="99dp"
         android:layout_height="wrap_content"
         android:onClick="onClick"
-        android:text="SerialDebug" />
+        android:text="SerialDebug"
+        app:layout_constraintBottom_toTopOf="@+id/frameA"
+        app:layout_constraintEnd_toStartOf="@+id/frameA"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/frameA"
+        app:layout_constraintTop_toTopOf="@+id/frameA" />
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onConnect"
+        android:text="SerialConnect"
+        app:layout_constraintBottom_toTopOf="@+id/frameA"
+        app:layout_constraintEnd_toStartOf="@+id/btnDisConnect"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDisConnect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onDisConnect"
+        android:text="SerialDisconnect"
+        app:layout_constraintBottom_toTopOf="@+id/frameA"
+        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+        app:layout_constraintStart_toEndOf="@+id/btnConnect"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="300dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/frameA"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/GimbalBView"

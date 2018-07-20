@@ -159,4 +159,13 @@ public class HexDump {
 
         return buffer;
     }
+
+    public static String byteArrayToBinaryString(byte[] b) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < b.length; ++i) {
+            sb.append(new String(b, i, 1));
+        }
+        return sb.toString();
+    }
+
 }

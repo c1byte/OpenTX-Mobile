@@ -184,7 +184,7 @@ public class SerialConsoleActivity extends Activity {
 
     private void updateReceivedData(byte[] data) {
         final String message = "Read " + data.length + " bytes: \n"
-                                + HexDump.dumpHexString(data) + "\n\n";
+                                + HexDump.byteArrayToBinaryString(data) + "\n\n";
         mDumpTextView.append(message);
         mScrollView.smoothScrollTo(0, mDumpTextView.getBottom());
     }
@@ -207,7 +207,7 @@ public class SerialConsoleActivity extends Activity {
         byte[] CRLP = new byte[2];
         CRLP[0] = 0x0D;
         CRLP[1] = 0x0A;
-    String data = "p outputs";
+        String data = "p outputs";
         mSerialIoManager.writeAsync(CRLP);
         mSerialIoManager.writeAsync(data.getBytes("UTF-8"));
         mSerialIoManager.writeAsync(CRLP);

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.driver.UsbSerialPort;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,10 +29,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    private OpenTxMobileApplication applicationClass;
+    private UsbSerialPort port;
     public void  onClick(View view) {
+
         Intent intent = new Intent(this, DeviceListActivity.class);
         startActivity(intent);
+        applicationClass = (OpenTxMobileApplication) getApplicationContext();
 
+        port = applicationClass.getUsbSerialPort();
+        SerialConsoleActivity.show(this, port);
+
+    }
+
+
+
+    public void onConnect(View view){
+
+        applicationClass = (OpenTxMobileApplication) getApplicationContext();
+        applicationClass.openUsbSerialPort();
+}
+
+    public void onDisConnect(View view){
+        applicationClass = (OpenTxMobileApplication) getApplicationContext();
+        applicationClass.closeUsbSerialPort();
     }
 }
