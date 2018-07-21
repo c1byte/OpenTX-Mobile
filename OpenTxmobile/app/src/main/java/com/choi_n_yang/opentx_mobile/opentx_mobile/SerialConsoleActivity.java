@@ -193,7 +193,7 @@ public class SerialConsoleActivity extends Activity {
      * Starts the activity, using the supplied driver instance.
      *
      * @param context
-     * @param driver
+     * @param port
      */
     static void show(Context context, UsbSerialPort port) {
         sPort = port;

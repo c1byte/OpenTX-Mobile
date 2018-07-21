@@ -16,6 +16,8 @@ public class OpenTxMobileApplication extends Application {
 
     private UsbManager m_UsbManager;
     private UsbSerialPort m_port;
+    private final int MAX_CHANNEL = 10;
+    private int[] m_Channel = new int[MAX_CHANNEL];
 
     @Override
     public void onCreate() {
@@ -38,7 +40,9 @@ public class OpenTxMobileApplication extends Application {
             final List<UsbSerialPort> ports = driver.getPorts();
             UsbSerialPorts.addAll(ports);
         }
-        m_port = UsbSerialPorts.get(0);
+        if(UsbSerialPorts.size() > 0 ) {
+             m_port = UsbSerialPorts.get(0);
+        }
 
     }
     public void closeUsbSerialPort() {
@@ -48,5 +52,18 @@ public class OpenTxMobileApplication extends Application {
         return m_port;
     }
 
+    public void setChannel( int[] chnl )
+    {
+        for(int i=0; i< MAX_CHANNEL;i++)
+        {
+            m_Channel[i] = chnl[i];
+        }
+    }
+    public void setChannel( int Chnl, int idx)
+    {
+        if( idx < MAX_CHANNEL) {
+            m_Channel[idx] = Chnl;
+        }
+    }
 
 }
