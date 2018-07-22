@@ -32,9 +32,6 @@
             android:name=".SerialConsoleActivity"
             android:label="@string/title_activity_serial_console" />
         <activity
-            android:name=".DeviceListActivity"
-            android:label="@string/title_activity_device_list" />
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
     </application>
