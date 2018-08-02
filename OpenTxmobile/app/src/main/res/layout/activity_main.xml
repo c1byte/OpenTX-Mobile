@@ -1,22 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:id="mainLayout">
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtStatusView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/frameA"
+        android:layout_centerHorizontal="true"
+        android:text="Welcome to OpenTx-Mobile!" />
+
+    <Button
+        android:id="@+id/BtnUpdate"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onClickSend"
+        android:text="update chaneel" />
+
+    <TextView
+        android:id="@+id/txtCh4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCh3"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtCh3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCh2"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtCh2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCh1"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtCh1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/frameA"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="468dp"
+        android:layout_height="126dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/frameA"
+        android:editable="false"
+        android:gravity="bottom"
+        android:scrollbars="vertical"
+        android:text="TextView" />
 
     <FrameLayout
         android:id="@+id/frameA"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDisConnect">
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginStart="18dp">
 
         <ImageView
             android:id="@+id/GimbalAView"
@@ -39,73 +97,18 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/txtStatusView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to OpenTx-Mobile!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="99dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:onClick="onClick"
-        android:text="SerialDebug"
-        app:layout_constraintBottom_toTopOf="@+id/frameA"
-        app:layout_constraintEnd_toEndOf="@+id/btnConnect"
-        app:layout_constraintStart_toStartOf="@+id/btnConnect"
-        app:layout_constraintTop_toTopOf="@+id/frameA"
-        app:layout_constraintVertical_bias="0.49" />
-
-    <Button
-        android:id="@+id/btnConnect"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:onClick="onConnect"
-        android:text="SerialConnect"
-        app:layout_constraintBottom_toTopOf="@+id/frameA"
-        app:layout_constraintEnd_toStartOf="@+id/btnDisConnect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnDisConnect"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
-        android:layout_marginEnd="8dp"
-        android:onClick="onDisConnect"
-        android:text="SerialDisconnect"
-        app:layout_constraintBottom_toTopOf="@+id/frameA"
-        app:layout_constraintEnd_toStartOf="@+id/frameLayout"
-        app:layout_constraintStart_toEndOf="@+id/btnConnect"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/frameA"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        android:id="@+id/frameB"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/frameA"
+        android:layout_marginEnd="27dp">
 
         <ImageView
             android:id="@+id/GimbalBView"
             android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:background="@mipmap/ic_stick_background"
             android:contentDescription="GimbalBView"
             app:layout_constraintStart_toEndOf="@+id/GimbalBView"
@@ -122,4 +125,4 @@
 
     </FrameLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

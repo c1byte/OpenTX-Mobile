@@ -3,14 +3,13 @@
     package="com.choi_n_yang.opentx_mobile.opentx_mobile">
 
     <application
+        android:name=".OpenTxMobileApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name = "com.choi_n_yang.opentx_mobile.opentx_mobile.OpenTxMobileApplication">
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:screenOrientation="landscape">
@@ -19,21 +18,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-            </intent-filter>
 
-            <meta-data
-                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-                android:resource="@xml/device_filter" />
         </activity>
-
-        <activity
-            android:name=".SerialConsoleActivity"
-            android:label="@string/title_activity_serial_console" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
+
+        <service
+            android:name=".UsbService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

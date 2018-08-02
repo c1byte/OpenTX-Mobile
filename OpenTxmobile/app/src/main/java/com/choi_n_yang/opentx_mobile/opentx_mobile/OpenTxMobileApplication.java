@@ -1,28 +1,59 @@
 package com.choi_n_yang.opentx_mobile.opentx_mobile;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
-import android.content.Context;
-import android.hardware.usb.UsbManager;
-import android.util.Log;
+import android.content.DialogInterface;
+import android.widget.Toast;
 
-import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.driver.UsbSerialDriver;
-import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.driver.UsbSerialPort;
-import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.driver.UsbSerialProber;
+import com.choi_n_yang.opentx_mobile.opentx_mobile.usbserial.util.HexDump;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.String;
 
 public class OpenTxMobileApplication extends Application {
 
-    private UsbManager m_UsbManager;
-    private UsbSerialPort m_port;
     private final int MAX_CHANNEL = 10;
-    private int[] m_Channel = new int[MAX_CHANNEL];
+    private int[] m_Channel;
+
+
+    public void updateReceivedData(byte[] data) {
+        final String message = HexDump.byteArrayToBinaryString(data);
+        String[] aMessage = message.split("\n");
+        for(int i=0;i<aMessage.length;i++)
+        {
+            aMessage[i].trim();
+            this.linePaser(aMessage[i]);
+        }
+    }
+    public void linePaser(String data){
+        if(data.contains("outputs[0]"))
+        {
+            String temp = data.substring(data.indexOf("=")+1);
+            m_Channel[0] = ATOI(temp.trim());
+
+        }else if(data.contains("outputs[1]"))
+        {
+            String temp = data.substring(data.indexOf("=")+1);
+            m_Channel[1] = ATOI(temp.trim());
+
+        }else if(data.contains("outputs[2]"))
+        {
+            String temp = data.substring(data.indexOf("=")+1);
+            m_Channel[2] = ATOI(temp.trim());
+
+        }else if(data.contains("outputs[3]"))
+        {
+            String temp = data.substring(data.indexOf("=")+1);
+            m_Channel[3] = ATOI(temp.trim());
+
+        }
+
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        m_UsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+        m_Channel = new int[MAX_CHANNEL];
 
     }
 
@@ -31,26 +62,6 @@ public class OpenTxMobileApplication extends Application {
         super.onTerminate();
     }
 
-    public UsbManager getUsbManager() { return m_UsbManager;}
-    public void openUsbSerialPort() {
-        final List<UsbSerialDriver> drivers =
-                UsbSerialProber.getDefaultProber().findAllDrivers(m_UsbManager);
-        final List<UsbSerialPort> UsbSerialPorts = new ArrayList<UsbSerialPort>();
-        for (final UsbSerialDriver driver : drivers) {
-            final List<UsbSerialPort> ports = driver.getPorts();
-            UsbSerialPorts.addAll(ports);
-        }
-        if(UsbSerialPorts.size() > 0 ) {
-             m_port = UsbSerialPorts.get(0);
-        }
-
-    }
-    public void closeUsbSerialPort() {
-//        m_port.close();
-    }
-    public UsbSerialPort getUsbSerialPort() {
-        return m_port;
-    }
 
     public void setChannel( int[] chnl )
     {
@@ -65,5 +76,54 @@ public class OpenTxMobileApplication extends Application {
             m_Channel[idx] = Chnl;
         }
     }
+
+    public int getChannel( int idx ){
+        return m_Channel[idx];
+    }
+
+    public void debug(Object obj, String title, String msg){
+        final Activity activity = (Activity)obj;
+
+        AlertDialog.Builder alertdialog = new AlertDialog.Builder(activity);
+        alertdialog.setMessage(msg);
+        alertdialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(activity, "confirmed", Toast.LENGTH_SHORT);
+            }
+        });
+        AlertDialog alert = alertdialog.create();
+        alert.setTitle(title);
+        alert.show();
+
+    }
+
+    public static int ATOI(String sTmp)
+    {
+        String tTmp = "0", cTmp = "";
+
+        sTmp = sTmp.trim();
+        for(int i=0;i < sTmp.length();i++)
+        {
+            cTmp = sTmp.substring(i,i+1);
+            if(cTmp.equals("0") ||
+                    cTmp.equals("1") ||
+                    cTmp.equals("2") ||
+                    cTmp.equals("3") ||
+                    cTmp.equals("4") ||
+                    cTmp.equals("5") ||
+                    cTmp.equals("6") ||
+                    cTmp.equals("7") ||
+                    cTmp.equals("8") ||
+                    cTmp.equals("9")) tTmp += cTmp;
+            else if(cTmp.equals("-") && i==0)
+                tTmp = "-";
+            else
+                break;
+        }
+
+        return(Integer.parseInt(tTmp));
+    }
+
 
 }
