@@ -15,6 +15,14 @@
         android:layout_centerHorizontal="true"
         android:text="Welcome to OpenTx-Mobile!" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@android:dimen/thumbnail_width"
+        android:layout_height="201dp"
+        android:layout_alignTop="@+id/txtCh1"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@android:color/darker_gray" />
+
     <Button
         android:id="@+id/BtnUpdate"
         android:layout_width="99dp"

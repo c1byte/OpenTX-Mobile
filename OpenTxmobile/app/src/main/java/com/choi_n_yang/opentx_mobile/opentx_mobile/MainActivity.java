@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView m_statusTextView;
     private TextView display;
+    private ImageView m_MainScreen;
 
     /*
      * This handler will be passed to UsbService. Data received from serial port is displayed through this handler
@@ -84,8 +88,10 @@ public class MainActivity extends AppCompatActivity {
             switch (msg.what) {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                     String data = (String) msg.obj;
-                    mActivity.get().display.append(data);
                     mActivity.get().m_App.updateReceivedData(data.getBytes());
+                    mActivity.get().display.append("SerialPort>>>>>");
+                    mActivity.get().display.append(data);
+                    mActivity.get().display.append("<<<<<<<<<<SerialPort");
                     mActivity.get().updateChannel();
                     break;
                 case UsbService.CTS_CHANGE:
@@ -96,8 +102,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case UsbService.SYNC_READ:
                     String buffer = (String) msg.obj;
-                    mActivity.get().display.append(buffer);
                     mActivity.get().m_App.updateReceivedData(buffer.getBytes());
+                    mActivity.get().display.append("SYNC_READ>>>>>");
+                    mActivity.get().display.append(buffer);
+                    mActivity.get().display.append("<<<<<<<<<<SYNC_READ");
                     mActivity.get().updateChannel();
                     break;
             }
@@ -117,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         display = (TextView) findViewById(R.id.textView);
         display.setMovementMethod(new ScrollingMovementMethod());
 
+        m_MainScreen = (ImageView)findViewById(R.id.imageView);
 
     }
 
@@ -134,6 +143,11 @@ public class MainActivity extends AppCompatActivity {
 
         setFilters();  // Start listening notifications from UsbService
         startService(UsbService.class, usbConnection, null); // Start UsbService(if it was not started before) and Bind it
+
+//        Bitmap src =  Bitmap.createBitmap(m_App.getMainScreen(), 128, 64, Bitmap.Config.ARGB_8888);
+
+//        m_MainScreen.setImageBitmap(src);
+
     }
 
     private void startService(Class<?> service, ServiceConnection serviceConnection, Bundle extras) {
@@ -186,15 +200,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void  onClickSend(View view) throws UnsupportedEncodingException {
-        byte[] CRLP = new byte[2];
-        CRLP[0] = 0x0D;
-        CRLP[1] = 0x0A;
-        String data = "p outputs";
+        //byte[] CRLP = new byte[1];
+        //CRLP[0] = 0x0D;
+        //CRLP[1] = 0x0A;
+//        String data = "p outputs\n";
+        String data = "p displaybuf\n";
+        Bitmap src =  Bitmap.createBitmap(m_App.getMainScreen(), 128, 64, Bitmap.Config.ARGB_8888);
+        m_MainScreen.setImageBitmap(src);
+
+//        String data = "display0 = 0f0f0f0f0f00f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0\n";
+//        m_App.linePaser(data);
+//        data = "display1 = 0f0f0f0f0f070f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
+//        data = "display2 = 0f0f0f0f0f0f000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
+//        data = "display3 = 0f0f0f0f0f0f0f000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
+//       data = "display4 = 0f0f0f0f0f0f0f0f000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
+//        data = "display5 = 0f0f0f0f0f0f0f0f0f000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
+//        data = "display6 = 0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
+//        data = "display7 = 0f0f0f020202020202020202020202020202020202020f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f\n";
+//        m_App.linePaser(data);
 
 
-        usbService.write(CRLP);
         usbService.write(data.getBytes());
-        usbService.write(CRLP);
 
         //updateChannel();
     }
@@ -213,6 +245,9 @@ public class MainActivity extends AppCompatActivity {
         ch2.setText("Ch2:" + m_App.getChannel(1));
         ch3.setText("Ch3:" + m_App.getChannel(2));
         ch4.setText("Ch4:" + m_App.getChannel(3));
+
+        Bitmap src =  Bitmap.createBitmap(m_App.getMainScreen(), 128, 64, Bitmap.Config.ARGB_8888);
+        m_MainScreen.setImageBitmap(src);
 
     }
 

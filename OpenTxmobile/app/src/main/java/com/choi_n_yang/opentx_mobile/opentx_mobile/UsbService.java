@@ -300,7 +300,7 @@ public class UsbService extends Service {
         @Override
         public void run() {
             while(true){
-                byte[] buffer = new byte[1024];
+                byte[] buffer = new byte[512];
                 int n = serialPort.syncRead(buffer, 0);
                 if(n > 0) {
                     byte[] received = new byte[n];
