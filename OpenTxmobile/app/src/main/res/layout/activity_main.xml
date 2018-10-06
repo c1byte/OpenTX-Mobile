@@ -75,6 +75,60 @@
         android:scrollbars="vertical"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/btn_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignTop="@+id/imageView"
+        android:onClick="onClick_Up"
+        android:text="Up" />
+
+    <Button
+        android:id="@+id/btn_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignTop="@+id/txtCh4"
+        android:onClick="onClick_Down"
+        android:text="Down" />
+
+    <Button
+        android:id="@+id/btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toEndOf="@+id/txtStatusView"
+        android:onClick="onClick_Menu"
+        android:text="Menu" />
+
+    <Button
+        android:id="@+id/btn_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtCh4"
+        android:layout_toEndOf="@+id/txtStatusView"
+        android:onClick="onClick_Page"
+        android:text="Page" />
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_page"
+        android:layout_toEndOf="@+id/btn_menu"
+        android:onClick="onClick_Enter"
+        android:text="Enter" />
+
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtStatusView"
+        android:layout_toEndOf="@+id/btn_menu"
+        android:onClick="onClick_Exit"
+        android:text="Exit" />
+
     <FrameLayout
         android:id="@+id/frameA"
         android:layout_width="200dp"

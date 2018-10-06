@@ -230,9 +230,64 @@ public class MainActivity extends AppCompatActivity {
 
         //updateChannel();
     }
+    public void updateScreen(){
+        String data = "p displaybuf\n";
+        Bitmap src =  Bitmap.createBitmap(m_App.getMainScreen(), 128, 64, Bitmap.Config.ARGB_8888);
+        m_MainScreen.setImageBitmap(src);
+        usbService.write(data.getBytes());
+    }
+    public void onClick_Up(View view){
+        String data = "keyinput up\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+    public void onClick_Down(View view){
+        String data = "keyinput dwon\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+    public void onClick_Exit(View view){
+        String data = "keyinput exit\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
 
+
+    public void onClick_Enter(View view){
+        String data = "keyinput enter\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+
+    public void onClick_EnterLong(View view){
+        String data = "keyinput enterlong\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+    public void onClick_Menu(View view){
+        String data = "keyinput menu\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+    public void onClick_MenuLong(View view){
+        String data = "keyinput menulong\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+    public void onClick_Page(View view){
+        String data = "keyinput page\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
+    public void onClick_PageLong(View view){
+        String data = "keyinput pagelong\n";
+        usbService.write(data.getBytes());
+        updateScreen();
+    }
     public void updateConnectionStatus(){
-
+        String data = "keyinput up\n";
+        usbService.write(data.getBytes());
+        updateScreen();
     }
 
     public void updateChannel(){
